@@ -14,10 +14,26 @@ class AddVisitor extends StatelessWidget {
         viewModelBuilder: () => Addvisitormodel(),
         onViewModelReady: (model) => model.initialise(context),
         builder: (context, model, child) => Scaffold(
+            appBar: AppBar(
+              title: Text("Visitor's Form"),
+            ),
             body: fullScreenLoader(
                 loader: model.isBusy,
-                child: Column(
-                  children: [],
+                child: Padding(
+                  padding: const EdgeInsets.all(13.0),
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        initialValue: model.name,
+                        decoration: InputDecoration(
+                          labelText: 'Date of Birth',
+                          hintText: 'DD-MM-YYYY',
+                        ),
+                        validator: model.validateName,
+                        onChanged: model.setSelectedName,
+                      ),
+                    ],
+                  ),
                 ),
                 context: context)));
   }

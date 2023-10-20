@@ -1,7 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-
+import 'package:icons_plus/icons_plus.dart';
 import '../constants.dart';
 import '../router.router.dart';
 
@@ -13,87 +12,84 @@ Widget myDrawer(BuildContext context, String name, String email) {
           accountName: AutoSizeText(
             name,
             maxLines: 1,
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           accountEmail: AutoSizeText(
             email,
             maxLines: 1,
-            style: TextStyle(fontSize: 16),
+            style: const TextStyle(fontSize: 14),
           ),
-          currentAccountPicture: CircleAvatar(
+          arrowColor: Colors.black87,
+          currentAccountPicture: const CircleAvatar(
             backgroundImage: NetworkImage(
-              'https://cdn-icons-png.flaticon.com/512/1782/1782916.png',
+              'https://img.freepik.com/premium-vector/man-character_665280-46970.jpg',
             ),
           ),
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.cover,
               image: NetworkImage(
-                'https://oflutter.com/wp-content/uploads/2021/02/profile-bg3.jpg',
+                'https://babich.biz/content/images/2016/03/user-profile-bg.jpg',
               ),
             ),
           ),
         ),
         ListTile(
-          leading: Icon(Icons.home, color: Colors.black),
-          title: Text(
+          leading: const Icon(Bootstrap.house, color: Colors.black),
+          title: const Text(
             'Home',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(fontWeight: FontWeight.w300),
           ),
           onTap: () {
             Navigator.popAndPushNamed(context, Routes.homePage);
           },
         ),
-        Divider(thickness: 1),
         ListTile(
-          leading: Icon(Icons.people, color: Colors.black),
-          title: Text(
+          leading: const Icon(Bootstrap.people, color: Colors.black),
+          title: const Text(
             'Visitor Information',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(fontWeight: FontWeight.w300),
           ),
           onTap: () {
-            // Handle onTap for Visitor Information
+            Navigator.pushNamed(context, Routes.visitorList);
           },
         ),
-        Divider(thickness: 1),
         ListTile(
-          leading: Icon(Icons.person_add_alt_1, color: Colors.black),
-          title: Text(
+          leading: const Icon(Bootstrap.person_add, color: Colors.black),
+          title: const Text(
             'Add Team Member',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(fontWeight: FontWeight.w300),
           ),
           onTap: () {
             // Handle onTap for Add Team Member
           },
         ),
-        Divider(thickness: 1),
         ListTile(
-          leading: Icon(Icons.shopping_cart, color: Colors.black),
-          title: Text(
+          leading: const Icon(Bootstrap.cart, color: Colors.black),
+          title: const Text(
             'Products',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(fontWeight: FontWeight.w300),
           ),
           onTap: () {
             // Handle onTap for Products
           },
         ),
-        Divider(thickness: 1),
         ListTile(
-          leading: Icon(Icons.person_pin_outlined, color: Colors.black),
-          title: Text(
+          leading: const Icon(Icons.person_pin_outlined, color: Colors.black),
+          title: const Text(
             'Designations',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(fontWeight: FontWeight.w300),
           ),
           onTap: () {
             // Handle onTap for Designations
           },
         ),
-        Divider(thickness: 1),
+        const Divider(thickness: 1),
         ListTile(
-          leading: Icon(Icons.logout, color: Colors.black),
-          title: Text(
+          leading: const Icon(Iconsax.logout, color: Colors.black),
+          title: const Text(
             'Logout',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(fontWeight: FontWeight.w300),
           ),
           onTap: () {
             logout(context);

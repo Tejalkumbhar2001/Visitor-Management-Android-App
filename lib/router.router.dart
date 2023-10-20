@@ -5,15 +5,17 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter/material.dart' as _i6;
+import 'package:flutter/material.dart' as _i7;
 import 'package:flutter/material.dart';
 import 'package:geolocation/screens/home_screen/home_page.dart' as _i3;
 import 'package:geolocation/screens/login/login_view.dart' as _i4;
 import 'package:geolocation/screens/splash_screen/splash_screen.dart' as _i2;
+import 'package:geolocation/screens/visitor_information/add_visitor/add_visitor_view.dart'
+    as _i6;
 import 'package:geolocation/screens/visitor_information/list_visitor/list_visitor_view.dart'
     as _i5;
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i7;
+import 'package:stacked_services/stacked_services.dart' as _i8;
 
 class Routes {
   static const splashScreen = '/';
@@ -24,11 +26,14 @@ class Routes {
 
   static const visitorList = '/visitor-list';
 
+  static const addVisitor = '/add-visitor';
+
   static const all = <String>{
     splashScreen,
     homePage,
     loginViewScreen,
     visitorList,
+    addVisitor,
   };
 }
 
@@ -50,30 +55,40 @@ class StackedRouter extends _i1.RouterBase {
       Routes.visitorList,
       page: _i5.VisitorList,
     ),
+    _i1.RouteDef(
+      Routes.addVisitor,
+      page: _i6.AddVisitor,
+    ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.SplashScreen: (data) {
-      return _i6.MaterialPageRoute<dynamic>(
+      return _i7.MaterialPageRoute<dynamic>(
         builder: (context) => const _i2.SplashScreen(),
         settings: data,
       );
     },
     _i3.HomePage: (data) {
-      return _i6.MaterialPageRoute<dynamic>(
+      return _i7.MaterialPageRoute<dynamic>(
         builder: (context) => const _i3.HomePage(),
         settings: data,
       );
     },
     _i4.LoginViewScreen: (data) {
-      return _i6.MaterialPageRoute<dynamic>(
+      return _i7.MaterialPageRoute<dynamic>(
         builder: (context) => const _i4.LoginViewScreen(),
         settings: data,
       );
     },
     _i5.VisitorList: (data) {
-      return _i6.MaterialPageRoute<dynamic>(
+      return _i7.MaterialPageRoute<dynamic>(
         builder: (context) => const _i5.VisitorList(),
+        settings: data,
+      );
+    },
+    _i6.AddVisitor: (data) {
+      return _i7.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i6.AddVisitor(),
         settings: data,
       );
     },
@@ -86,7 +101,7 @@ class StackedRouter extends _i1.RouterBase {
   Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
 }
 
-extension NavigatorStateExtension on _i7.NavigationService {
+extension NavigatorStateExtension on _i8.NavigationService {
   Future<dynamic> navigateToSplashScreen([
     int? routerId,
     bool preventDuplicates = true,
@@ -143,6 +158,20 @@ extension NavigatorStateExtension on _i7.NavigationService {
         transition: transition);
   }
 
+  Future<dynamic> navigateToAddVisitor([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.addVisitor,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
   Future<dynamic> replaceWithSplashScreen([
     int? routerId,
     bool preventDuplicates = true,
@@ -193,6 +222,20 @@ extension NavigatorStateExtension on _i7.NavigationService {
         transition,
   ]) async {
     return replaceWith<dynamic>(Routes.visitorList,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithAddVisitor([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.addVisitor,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

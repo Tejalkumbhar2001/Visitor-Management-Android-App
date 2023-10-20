@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked/stacked.dart';
 
-import '../../services/home_services.dart';
-
 class Homeviewmodel extends BaseViewModel {
   List<String> leadlist = [""];
   String? user;
@@ -16,7 +14,7 @@ class Homeviewmodel extends BaseViewModel {
     full_name = prefs.getString("full_name") ?? "";
 
     setBusy(true);
-    leadlist = await homeservices().fetchLead();
+    // leadlist = await homeservices().fetchLead();
     setBusy(false);
   }
 }

@@ -5,12 +5,14 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocation/constants.dart';
 import 'package:logger/logger.dart';
 
+import '../model/leadmodel.dart';
+
 class homeservices {
-  Future<List<String>> fetchLead() async {
+  Future<List<Leadmodel>> fetchLead() async {
     try {
       var dio = Dio();
       var response = await dio.request(
-        '$baseurl/api/resource/Lead',
+        '$baseurl/api/resource/Lead?fields=["lead_name","name"]',
         options: Options(
           method: 'GET',
           headers: {'Authorization': await getTocken()},
@@ -18,17 +20,11 @@ class homeservices {
       );
 
       if (response.statusCode == 200) {
-        var jsonData = json.encode(response.data);
-        Map<String, dynamic> jsonDataMap = json.decode(jsonData);
-        List<dynamic> dataList = jsonDataMap["data"];
-        Logger().i(dataList);
-        List<String> namesList =
-            dataList.map((item) => item["name"].toString()).toList();
-        return namesList;
-      }
-      if (response.statusCode == 401) {
-        Fluttertoast.showToast(msg: "Unauthorized Access!");
-        return ["401"];
+        Map<String, dynamic> jsonData = json.decode(json.encode(response.data));
+        List<Leadmodel> caneList = List.from(jsonData['data'])
+            .map<Leadmodel>((data) => Leadmodel.fromJson(data))
+            .toList();
+        return caneList;
       } else {
         Fluttertoast.showToast(msg: "Unable to fetch Lead");
         return [];

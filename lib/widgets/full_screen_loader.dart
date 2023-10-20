@@ -14,13 +14,12 @@ Widget fullScreenLoader(
           ? Container(
               height: getHeight(context),
               width: getWidth(context),
-              color: Colors.lightBlueAccent,
+              color: Colors.black.withOpacity(0.5),
               child: Center(
-                child: LoadingAnimationWidget.discreteCircle(
-                    color: Colors.white,
-                    size: 150,
-                    secondRingColor: Colors.blue,
-                    thirdRingColor: Colors.lightBlue),
+                child: LoadingAnimationWidget.staggeredDotsWave(
+                  color: Colors.blueAccent,
+                  size: 75,
+                ),
               ),
             )
           : Container(),

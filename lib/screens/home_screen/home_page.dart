@@ -26,7 +26,9 @@ class _HomePageState extends State<HomePage> {
               drawer: myDrawer(
                   context, (model.full_name ?? ""), (model.user ?? "")),
               body: fullScreenLoader(
-                child: const Column(children: [Text('welcome home')]),
+                child: Column(children: [
+                  Center(child: Text("Welcome, ${model.full_name}"))
+                ]),
                 loader: model.isBusy,
                 context: context,
               ),
