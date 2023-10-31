@@ -55,9 +55,7 @@ class ListDesignation extends StatelessWidget {
 }
 
 addDesignation(BuildContext context, ListDesignationModel model) {
-  model.isEdit == false
-      ? model.resetBankVariables()
-      : model.setvariable(model.designationdata.designationName);
+  model.resetBankVariables();
   SchedulerBinding.instance.addPostFrameCallback(
     (_) {
       showDialog(

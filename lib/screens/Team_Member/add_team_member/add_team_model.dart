@@ -18,6 +18,8 @@ class Addteammembermodel extends BaseViewModel {
   TextEditingController mobilecontroller = TextEditingController();
   TextEditingController passwordcontroller = TextEditingController();
   TextEditingController confirmpasswordcontroller = TextEditingController();
+  bool obscurePassword = true;
+  bool obscureconfirmPassword = true;
 
   Team_member addmemberdata = Team_member();
 

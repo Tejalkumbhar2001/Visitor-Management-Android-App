@@ -67,7 +67,37 @@ class ProductServices {
         Fluttertoast.showToast(msg: "Product Added Successfully");
         return true;
       } else {
-        Fluttertoast.showToast(msg: "UNABLE TO Product!");
+        Fluttertoast.showToast(msg: "UNABLE TO add Product!");
+        return false;
+      }
+    } catch (e) {
+      Fluttertoast.showToast(msg: "Error accoured $e ");
+      Logger().e(e);
+    }
+    return false;
+  }
+
+  Future<bool> updateproduct(Product product) async {
+    var data = json.encode({
+      "data": product,
+    });
+
+    try {
+      var dio = Dio();
+      var response = await dio.request(
+        '$baseurl/api/resource/Product/${product.name.toString()}',
+        options: Options(
+          method: 'PUT',
+          headers: {'Authorization': await getTocken()},
+        ),
+        data: data,
+      );
+
+      if (response.statusCode == 200) {
+        Fluttertoast.showToast(msg: "Product Updated Successfully");
+        return true;
+      } else {
+        Fluttertoast.showToast(msg: "UNABLE TO update Product!");
         return false;
       }
     } catch (e) {

@@ -32,7 +32,7 @@ class ListDesignationModel extends BaseViewModel {
         if (context.mounted) {
           setBusy(false);
           setBusy(false);
-          Navigator.of(context);
+          Navigator.pop(context);
         }
       }
     }

@@ -15,7 +15,7 @@ class ProductModel extends BaseViewModel {
   final formKey = GlobalKey<FormState>();
   TextEditingController productcontroller = TextEditingController();
   TextEditingController descriptioncontroller = TextEditingController();
-
+  bool res = false;
   bool isEdit = false;
   Product productdata = Product();
   void initialise(BuildContext context, String productid) async {
@@ -37,24 +37,32 @@ class ProductModel extends BaseViewModel {
       productcontroller.text = productdata.productName ?? "";
       descriptioncontroller.text = productdata.description ?? "";
       notifyListeners();
-
-      try {
-        await uploadFiles();
-        bool success = await ProductServices().addproduct(productdata);
-
-        if (success && context.mounted) {
-          setBusy(false);
-          Navigator.popAndPushNamed(
-            context,
-            Routes.productList,
-          );
+      if (isEdit == true) {
+        res = await ProductServices().updateproduct(productdata);
+        if (res) {
+          if (context.mounted) {
+            setBusy(false);
+            setBusy(false);
+            Navigator.popAndPushNamed(
+              context,
+              Routes.productList,
+            );
+          }
         }
-      } catch (error) {
-        // Handle errors here, if needed
-        print("Error: $error");
+      } else {
+        res = await ProductServices().addproduct(productdata);
+        if (res) {
+          if (context.mounted) {
+            setBusy(false);
+            setBusy(false);
+            Navigator.popAndPushNamed(
+              context,
+              Routes.productList,
+            );
+          }
+        }
       }
     }
-
     setBusy(false);
   }
 

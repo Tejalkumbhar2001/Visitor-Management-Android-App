@@ -46,15 +46,15 @@ class ProductList extends StatelessWidget {
                                           elevation: 2,
                                           margin: EdgeInsets.all(8),
                                           child: Stack(
+                                            fit: StackFit.loose,
                                             children: <Widget>[
                                               // Product Image
                                               ClipRRect(
                                                 borderRadius: BorderRadius.all(
-                                                    Radius.circular(4)),
+                                                    Radius.circular(10)),
                                                 child: Image.network(
                                                   '$baseurl${model.productlist[index].productImage}',
                                                   fit: BoxFit.fill,
-                                                  height: 100,
                                                   width: double.infinity,
                                                 ),
                                               ),
@@ -93,7 +93,7 @@ class ProductList extends StatelessWidget {
                                 children: [
                                   const Center(
                                       child: Text(
-                                          "You haven't created a Team Member yet")),
+                                          "You haven't created Product yet")),
                                   CtextButton(
                                     onPressed: () {
                                       Navigator.popAndPushNamed(
@@ -101,7 +101,7 @@ class ProductList extends StatelessWidget {
                                           arguments: AddProductScreenArguments(
                                               productid: ""));
                                     },
-                                    text: 'Create Team Member',
+                                    text: 'Create Product',
                                   )
                                 ],
                               )

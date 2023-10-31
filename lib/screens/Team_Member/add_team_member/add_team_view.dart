@@ -154,11 +154,49 @@ class _AddTeamMemberState extends State<AddTeamMember> {
                           ),
                           TextFormField(
                               controller: model.passwordcontroller,
-                              decoration:
-                                  AppInputDecorations.textFieldDecoration(
-                                      labelText: 'Password',
-                                      hintText: '**********',
-                                      prefixIcon: Icons.password),
+                              obscureText: model.obscurePassword,
+                              decoration: InputDecoration(
+                                labelText: "Password",
+                                hintText: "*********",
+                                prefixIcon: Icon(Icons.password_outlined),
+                                suffixIcon: InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      model.obscurePassword =
+                                          !model.obscurePassword;
+                                    });
+                                  },
+                                  child: Icon(
+                                    model.obscurePassword
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.blue, width: 2.0),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.grey, width: 1.0),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.red, width: 1.0),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.red, width: 2.0),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                              ),
                               onChanged: model.setpassword,
                               validator: (value) => value!.isEmpty
                                   ? 'Please enter a password'
@@ -168,10 +206,49 @@ class _AddTeamMemberState extends State<AddTeamMember> {
                           ),
                           TextFormField(
                             controller: model.confirmpasswordcontroller,
-                            decoration: AppInputDecorations.textFieldDecoration(
-                                labelText: 'Confirm Password',
-                                hintText: '**********',
-                                prefixIcon: Icons.password_outlined),
+                            obscureText: model.obscureconfirmPassword,
+                            decoration: InputDecoration(
+                              labelText: "Confirm Password",
+                              prefixIcon: Icon(Icons.password_outlined),
+                              hintText: "*********",
+                              suffixIcon: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    model.obscureconfirmPassword =
+                                        !model.obscureconfirmPassword;
+                                  });
+                                },
+                                child: Icon(
+                                  model.obscureconfirmPassword
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.blue, width: 2.0),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.grey, width: 1.0),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.red, width: 1.0),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.red, width: 2.0),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                            ),
                             onChanged: model.setconfirmpass,
                             validator: model.validateconfirmpassword,
                           ),
