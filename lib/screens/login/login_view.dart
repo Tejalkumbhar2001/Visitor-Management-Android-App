@@ -5,6 +5,7 @@ import 'package:geolocation/widgets/full_screen_loader.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:stacked/stacked.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import 'login_model.dart';
 
 class LoginViewScreen extends StatefulWidget {
@@ -26,10 +27,7 @@ class _LoginViewScreenState extends State<LoginViewScreen> {
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [
-                Color(0xFF005BEA), // Custom gradient color
-                Color(0xFF00C6FB),
-              ],
+              colors: [Color(0xFF005BEA), Color(0xFF00C6FB)],
             ),
           ),
           child: fullScreenLoader(
@@ -64,6 +62,7 @@ class _LoginViewScreenState extends State<LoginViewScreen> {
                           children: [
                             TextFormField(
                               controller: model.urlController,
+                              style: const TextStyle(color: Colors.black87),
                               decoration: InputDecoration(
                                 // labelText: "Username",
                                 hintText: "Url",
@@ -83,7 +82,7 @@ class _LoginViewScreenState extends State<LoginViewScreen> {
                                 filled: true,
                                 fillColor:
                                     const Color.fromRGBO(255, 255, 255, 1),
-                                contentPadding: EdgeInsets.symmetric(
+                                contentPadding: const EdgeInsets.symmetric(
                                     vertical: 10.0, horizontal: 16.0),
                               ),
                               autofillHints: const [AutofillHints.url],
@@ -91,6 +90,7 @@ class _LoginViewScreenState extends State<LoginViewScreen> {
                             const SizedBox(height: 16.0),
                             TextFormField(
                               controller: model.usernameController,
+                              style: const TextStyle(color: Colors.black87),
                               decoration: InputDecoration(
                                 // labelText: "Username",
                                 hintText: "Username",
@@ -110,7 +110,7 @@ class _LoginViewScreenState extends State<LoginViewScreen> {
                                 filled: true,
                                 fillColor:
                                     const Color.fromRGBO(255, 255, 255, 1),
-                                contentPadding: EdgeInsets.symmetric(
+                                contentPadding: const EdgeInsets.symmetric(
                                     vertical: 10.0, horizontal: 16.0),
                               ),
                               autofillHints: const [AutofillHints.username],
@@ -123,6 +123,7 @@ class _LoginViewScreenState extends State<LoginViewScreen> {
                             ),
                             const SizedBox(height: 16.0),
                             TextFormField(
+                              style: const TextStyle(color: Colors.black87),
                               controller: model.passwordController,
                               obscureText: model.obscurePassword,
                               decoration: InputDecoration(
@@ -137,8 +138,8 @@ class _LoginViewScreenState extends State<LoginViewScreen> {
                                   },
                                   child: Icon(
                                     model.obscurePassword
-                                        ? Icons.visibility
-                                        : Icons.visibility_off,
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
                                     color: Colors.grey,
                                   ),
                                 ),
@@ -158,7 +159,7 @@ class _LoginViewScreenState extends State<LoginViewScreen> {
                                 filled: true,
                                 fillColor:
                                     const Color.fromRGBO(255, 255, 255, 1),
-                                contentPadding: EdgeInsets.symmetric(
+                                contentPadding: const EdgeInsets.symmetric(
                                     vertical: 10.0, horizontal: 16.0),
                               ),
                               autofillHints: const [AutofillHints.password],
@@ -215,9 +216,10 @@ class _LoginViewScreenState extends State<LoginViewScreen> {
                             const SizedBox(width: 10),
                             InkWell(
                               onTap: () async {
-                                const url = 'https://erpdata.in/';
-                                if (await canLaunch(url)) {
-                                  await launch(url);
+                                const url =
+                                    'https://mobilecrm.erpdata.in/user-registration/new';
+                                if (await canLaunchUrlString(url)) {
+                                  await launchUrlString(url);
                                 } else {
                                   throw 'Could not launch $url';
                                 }

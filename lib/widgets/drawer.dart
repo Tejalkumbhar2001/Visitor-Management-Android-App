@@ -1,10 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import '../constants.dart';
 import '../router.router.dart';
 
-Widget myDrawer(BuildContext context, String name, String email) {
+Widget myDrawer(BuildContext context, String name, String email, String role) {
   return Drawer(
     child: Column(
       children: [
@@ -28,7 +29,7 @@ Widget myDrawer(BuildContext context, String name, String email) {
           decoration: const BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.cover,
-              image: NetworkImage(
+              image: CachedNetworkImageProvider(
                 'https://babich.biz/content/images/2016/03/user-profile-bg.jpg',
               ),
             ),
@@ -54,16 +55,18 @@ Widget myDrawer(BuildContext context, String name, String email) {
             Navigator.pushNamed(context, Routes.visitorList);
           },
         ),
-        ListTile(
-          leading: const Icon(Bootstrap.person_add, color: Colors.black),
-          title: const Text(
-            'Add Team Member',
-            style: TextStyle(fontWeight: FontWeight.w300),
-          ),
-          onTap: () {
-            // Handle onTap for Add Team Member
-          },
-        ),
+        role != 'web user'
+            ? ListTile(
+                leading: const Icon(Bootstrap.person, color: Colors.black),
+                title: const Text(
+                  'Team Members',
+                  style: TextStyle(fontWeight: FontWeight.w300),
+                ),
+                onTap: () {
+                  Navigator.pushNamed(context, Routes.teamMemberList);
+                },
+              )
+            : Container(),
         ListTile(
           leading: const Icon(Bootstrap.cart, color: Colors.black),
           title: const Text(
@@ -71,19 +74,22 @@ Widget myDrawer(BuildContext context, String name, String email) {
             style: TextStyle(fontWeight: FontWeight.w300),
           ),
           onTap: () {
-            // Handle onTap for Products
+            Navigator.pushNamed(context, Routes.productList);
           },
         ),
-        ListTile(
-          leading: const Icon(Icons.person_pin_outlined, color: Colors.black),
-          title: const Text(
-            'Designations',
-            style: TextStyle(fontWeight: FontWeight.w300),
-          ),
-          onTap: () {
-            // Handle onTap for Designations
-          },
-        ),
+        role != 'web user'
+            ? ListTile(
+                leading:
+                    const Icon(Icons.person_pin_outlined, color: Colors.black),
+                title: const Text(
+                  'Designations',
+                  style: TextStyle(fontWeight: FontWeight.w300),
+                ),
+                onTap: () {
+                  Navigator.pushNamed(context, Routes.listDesignation);
+                },
+              )
+            : Container(),
         const Divider(thickness: 1),
         ListTile(
           leading: const Icon(Iconsax.logout, color: Colors.black),
@@ -92,7 +98,30 @@ Widget myDrawer(BuildContext context, String name, String email) {
             style: TextStyle(fontWeight: FontWeight.w300),
           ),
           onTap: () {
-            logout(context);
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text('Logout'),
+                  content: Text('Are you sure you want to log out?'),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () {
+                        // Close the dialog
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('Cancel'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        logout(context); // Close the dialog
+                      },
+                      child: Text('Logout'),
+                    ),
+                  ],
+                );
+              },
+            );
           },
         ),
       ],

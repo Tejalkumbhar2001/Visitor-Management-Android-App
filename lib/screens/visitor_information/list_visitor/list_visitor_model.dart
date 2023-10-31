@@ -1,14 +1,27 @@
 import 'package:flutter/cupertino.dart';
+import 'package:geolocation/model/visitor_info_model.dart';
 import 'package:stacked/stacked.dart';
-
-import '../../../model/leadmodel.dart';
-import '../../../services/home_services.dart';
+import '../../../model/visitor_list_model.dart';
+import '../../../router.router.dart';
+import '../../../services/visitor_list.dart';
 
 class listvisitormodel extends BaseViewModel {
-  List<Leadmodel> leadlist = [];
+  List<visitor_list> leadlist = [];
+
+  visitor_information visitordata = visitor_information();
   initialise(BuildContext context) async {
     setBusy(true);
-    leadlist = await homeservices().fetchLead();
+    leadlist = await Visitorlistservices().fetchLead();
     setBusy(false);
+  }
+
+  Future<void> refreshleadlist() async {
+    leadlist = await Visitorlistservices().fetchLead();
+    notifyListeners();
+  }
+
+  void onRowClick(BuildContext context, visitor_list? visitorList) {
+    Navigator.pushNamed(context, Routes.addVisitor,
+        arguments: AddVisitorArguments(visitorid: visitorList?.name ?? ""));
   }
 }

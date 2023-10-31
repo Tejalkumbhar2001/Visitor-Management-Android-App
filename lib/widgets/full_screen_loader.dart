@@ -14,7 +14,7 @@ Widget fullScreenLoader(
           ? Container(
               height: getHeight(context),
               width: getWidth(context),
-              color: Colors.black.withOpacity(0.5),
+              color: Colors.white,
               child: Center(
                 child: LoadingAnimationWidget.staggeredDotsWave(
                   color: Colors.blueAccent,

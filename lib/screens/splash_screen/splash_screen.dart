@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-
-import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../router.router.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _SplashScreenState createState() => _SplashScreenState();
 }
 
@@ -52,8 +48,6 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
 
-    double fontSize = screenWidth * 0.05;
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -64,11 +58,11 @@ class _SplashScreenState extends State<SplashScreen> {
           decoration: const BoxDecoration(
             color: Colors.white,
             image: DecorationImage(
-                fit: BoxFit.fill,
-                image: NetworkImage(
-                    'https://cdn-icons-png.flaticon.com/512/295/295128.png')),
+                fit: BoxFit.fitWidth,
+                image: AssetImage('assets/images/13.jpg')),
           ),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             mainAxisSize: MainAxisSize.min,
             children: [
               AnimatedOpacity(
@@ -77,9 +71,10 @@ class _SplashScreenState extends State<SplashScreen> {
                 child: const Padding(
                   padding: EdgeInsets.fromLTRB(0.0, 20, 0.0, 0.0),
                   child: Align(
-                    alignment: Alignment.topCenter,
+                    alignment: Alignment.center,
                     child: Text(
-                      'Venkateshwara Power Project',
+                      'Visitors Management',
+                      style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),

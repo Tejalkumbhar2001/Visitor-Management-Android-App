@@ -23,8 +23,8 @@ class _HomePageState extends State<HomePage> {
               appBar: AppBar(
                 title: const AutoSizeText('Home'),
               ),
-              drawer: myDrawer(
-                  context, (model.full_name ?? ""), (model.user ?? "")),
+              drawer: myDrawer(context, (model.full_name ?? ""),
+                  (model.user ?? ""), (model.role_profile ?? "")),
               body: fullScreenLoader(
                 child: Column(children: [
                   Center(child: Text("Welcome, ${model.full_name}"))

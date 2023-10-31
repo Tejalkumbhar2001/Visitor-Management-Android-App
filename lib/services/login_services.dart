@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:geolocation/constants.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -33,9 +32,10 @@ class loginservices {
         prefs.setString(
             "api_key", response.data["key_details"]["api_key"].toString());
         prefs.setString("user", response.data["user"].toString());
+        prefs.setString(
+            "role_profile", response.data["role_profile"].toString());
         prefs.setString("employee_id", response.data["employee_id"].toString());
         prefs.setString("full_name", response.data["full_name"].toString());
-
         Logger().i(response.data["key_details"]["api_secret"].toString());
         return true;
       } else {
