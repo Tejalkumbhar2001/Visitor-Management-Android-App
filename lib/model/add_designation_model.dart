@@ -5,18 +5,16 @@ class Add_Designation {
   int? docstatus;
   int? idx;
   String? designationName;
-  String? companyName;
   String? doctype;
 
   Add_Designation(
       {this.name,
-      this.owner,
-      this.modifiedBy,
-      this.docstatus,
-      this.idx,
-      this.designationName,
-      this.companyName,
-      this.doctype});
+        this.owner,
+        this.modifiedBy,
+        this.docstatus,
+        this.idx,
+        this.designationName,
+        this.doctype});
 
   Add_Designation.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -25,7 +23,6 @@ class Add_Designation {
     docstatus = json['docstatus'];
     idx = json['idx'];
     designationName = json['designation_name'];
-    companyName = json['company_name'];
     doctype = json['doctype'];
   }
 
@@ -37,7 +34,6 @@ class Add_Designation {
     data['docstatus'] = this.docstatus;
     data['idx'] = this.idx;
     data['designation_name'] = this.designationName;
-    data['company_name'] = this.companyName;
     data['doctype'] = this.doctype;
     return data;
   }

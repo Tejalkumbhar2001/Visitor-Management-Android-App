@@ -10,12 +10,16 @@ class ListDesignationModel extends BaseViewModel {
   List<Designation> designationlist = [];
   final formKey = GlobalKey<FormState>();
   bool isEdit = true;
+  List<Designation> designationfilterleadlist = [];
+  TextEditingController namecontroller=TextEditingController();
 
+  String Filter = "";
   Add_Designation designationdata = Add_Designation();
 
-  Future<void> initialise(BuildContext context) async {
+  initialise(BuildContext context) async {
     setBusy(true);
     designationlist = await ListDesignationServices().fetchDesignation();
+    designationfilterleadlist=designationlist;
     Logger().i(designationlist);
     setBusy(false);
   }
@@ -28,6 +32,7 @@ class ListDesignationModel extends BaseViewModel {
       Logger().i(designationdata.toJson().toString());
       bool res = false;
       res = await AddDesignationServices().addDesignation(designationdata);
+
       if (res) {
         if (context.mounted) {
           setBusy(false);
@@ -36,7 +41,8 @@ class ListDesignationModel extends BaseViewModel {
         }
       }
     }
-    designationlist = await ListDesignationServices().fetchDesignation();
+    designationfilterleadlist = await ListDesignationServices().fetchDesignation();
+
     setBusy(false);
   }
 
@@ -59,4 +65,14 @@ class ListDesignationModel extends BaseViewModel {
     designationdata.designationName = desigantion;
     notifyListeners();
   }
+
+  void filterListByName({String? name}) async {
+    Filter = name ?? Filter;
+    notifyListeners();
+    designationfilterleadlist =
+    await ListDesignationServices().getListByNameFilter(Filter);
+    notifyListeners();
+
+  }
+
 }

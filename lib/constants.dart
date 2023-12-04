@@ -1,21 +1,22 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:geolocation/router.router.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 getHeight(context) => (MediaQuery.of(context).size.height);
 getWidth(context) => (MediaQuery.of(context).size.width);
 const kAadharpdf = "AadharCard";
-const baseurl = 'https://mobilecrm.erpdata.in';
-
+String baseurl = geturl().toString();
+String apiaddvisitorattendence = '$baseurl/api/resource/Visitor Attendance';
+String apiaddtlcgiftinfo = '$baseurl/api/resource/TLC Gift Information';
 String apiaddvisitor = '$baseurl/api/resource/Visitor Information';
-String apiaddDesignation = '$baseurl/api/resource/Designations';
+String apiaddDesignation = '$baseurl/api/resource/Designation?limit_page_length=999';
+String apiaddevent='$baseurl/api/resource/Events?fields=["name"]';
 String apiroleprofile =
     '$baseurl/api/resource/Role Profile?filters=[["name","in",["Visitor Administrator","web user"]]]';
 String apimember = '$baseurl/api/resource/Add Team Member';
+String apievent = '$baseurl/api/resource/Events';
 String apilistmember =
     '$baseurl/api/resource/Add Team Member?fields=["first_name","last_name","designation","company","name"]';
 String apiUploadFilePost = '$baseurl/api/method/upload_file';
@@ -31,12 +32,28 @@ Future<String> getTocken() async {
   String formattedString = 'token $api_key:$api_secret';
   return formattedString;
 }
+Future<String> getSession() async {
+  final Future<SharedPreferences> prefs0 = SharedPreferences.getInstance();
+  final SharedPreferences prefs = await prefs0;
+  String? api_secret = prefs.getString("api_secret") ?? "";
+  String? api_key = prefs.getString("api_key") ?? "";
+  String formattedString = 'token $api_key:$api_secret';
+  return formattedString;
+}
+
 
 Future<String> getUser() async {
   final Future<SharedPreferences> prefs0 = SharedPreferences.getInstance();
   final SharedPreferences prefs = await prefs0;
   String? user = prefs.getString("user") ?? "";
   return user;
+}
+
+Future<String> geturl() async {
+  final Future<SharedPreferences> prefs0 = SharedPreferences.getInstance();
+  final SharedPreferences prefs = await prefs0;
+  String? url = prefs.getString("url") ?? "";
+  return url;
 }
 
 Future<String> getEmpId() async {
@@ -51,6 +68,13 @@ Future<String> getname() async {
   final SharedPreferences prefs = await prefs0;
   String? full_name = prefs.getString("full_name") ?? "";
   return full_name;
+}
+
+Future<String> getevent() async {
+  final Future<SharedPreferences> prefs0 = SharedPreferences.getInstance();
+  final SharedPreferences prefs = await prefs0;
+  String? event = prefs.getString("event") ?? "";
+  return event;
 }
 
 void logout(BuildContext context) async {
@@ -77,7 +101,7 @@ String generateUniqueFileName(File file) {
 }
 
 bool isImage(File file) {
-  List<String> imageExtensions = ['.png', '.jpg', '.jpeg', '.gif', '.bmp'];
+  List<String> imageExtensions = ['.png', '.jpg', '.jpeg', '.gif', '.bmp','.pdf','.doc'];
   String extension = file.path.split('.').last.toLowerCase();
   return imageExtensions.contains(extension);
 }

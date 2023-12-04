@@ -1,7 +1,6 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocation/router.router.dart';
-
 import 'package:geolocation/screens/splash_screen/splash_screen.dart';
 import 'package:geolocation/themes/color_schemes.g.dart';
 import 'package:geolocation/themes/custom_color.g.dart';
@@ -45,14 +44,12 @@ class MyApp extends StatelessWidget {
             colorScheme: lightScheme,
             extensions: [lightCustomColors],
           ),
-          darkTheme: ThemeData(
-            useMaterial3: true,
-            colorScheme: darkScheme,
-            extensions: [darkCustomColors],
-          ),
+
           home: const SplashScreen(),
         );
       },
     );
   }
 }
+
+

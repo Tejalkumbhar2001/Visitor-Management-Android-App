@@ -19,29 +19,52 @@ class ListDesignation extends StatelessWidget {
           title: const Text('Designations'),
         ),
         body: fullScreenLoader(
-          child: model.designationlist.isNotEmpty
-              ? RefreshIndicator(
-                  onRefresh: model.refreshlist,
-                  child: ListView.builder(
-                    itemCount: model.designationlist.length,
-                    itemBuilder: (context, index) {
-                      return Card(
-                        elevation: 3, // Card elevation for a shadow effect
-                        margin:
-                            const EdgeInsets.all(8), // Margin around the card
-                        child: ListTile(
-                          leading: Icon(Icons.person_pin_outlined),
-                          title: Text(model.designationlist[index].name ?? ""),
-                        ),
-                      );
-                    },
+          child:
+               Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      color: Colors.white,
+                      child: TextField(
+                          onChanged: (value) {
+                            model.namecontroller.text = value;
+                            model.filterListByName(
+                                name: value);
+                          },
+                          decoration: AppInputDecorations.textFieldDecoration(labelText: "Search Name", hintText: "Name", prefixIcon: Icons.search)
+                      ),
+                    ),
                   ),
-                )
-              : Center(
-                  child: Text("You haven't created a Designation yet"),
-                ),
-          loader: model.isBusy,
-          context: context,
+
+                  model.designationfilterleadlist.isNotEmpty
+                  ?Expanded(
+                    child: RefreshIndicator(
+                        onRefresh: model.refreshlist,
+                        child: ListView.builder(
+                          itemCount: model.designationfilterleadlist.length,
+                          itemBuilder: (context, index) {
+                            return Card(
+                              elevation: 3, // Card elevation for a shadow effect
+                              margin:
+                                  const EdgeInsets.all(8), // Margin around the card
+                              child: ListTile(
+                                leading: Icon(Icons.person_pin_outlined),
+                                title: Text(model.designationfilterleadlist[index].name ?? ""),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                  )
+                : Center(
+            child: Text("You haven't created a Designation yet"),
+                  ) ],
+
+
+              ),
+      loader: model.isBusy,
+      context: context,
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {

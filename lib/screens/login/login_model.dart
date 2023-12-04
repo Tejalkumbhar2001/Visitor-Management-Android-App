@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocation/constants.dart';
@@ -11,7 +11,7 @@ import '../../router.router.dart';
 class LoginViewModel extends BaseViewModel {
   final formGlobalKey = GlobalKey<FormState>();
   TextEditingController usernameController = TextEditingController();
-  TextEditingController urlController = TextEditingController()..text = baseurl;
+  TextEditingController urlController = TextEditingController()..text = 'https://events.erpdata.in';
   TextEditingController passwordController = TextEditingController();
   final FocusNode focusNode = FocusNode();
 
@@ -22,9 +22,10 @@ class LoginViewModel extends BaseViewModel {
   void loginwithUsernamePassword(BuildContext context) async {
     isloading = true;
     notifyListeners();
+    baseurl=urlController.text;
     String username = usernameController.text;
     String password = passwordController.text;
-    bool res = await loginservices().login(username, password);
+    bool res = await loginservices().login(baseurl,username, password);
     isloading = false;
     notifyListeners();
     if (res) {

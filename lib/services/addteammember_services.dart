@@ -3,12 +3,12 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logger/logger.dart';
-
 import '../constants.dart';
 import '../model/team_member_model.dart';
 
 class AddMemberServices {
   Future<bool> addMember(Team_member member) async {
+    baseurl= await geturl();
     var data = json.encode({
       "data": member,
     });
@@ -16,7 +16,7 @@ class AddMemberServices {
     try {
       var dio = Dio();
       var response = await dio.request(
-        apimember,
+        '$baseurl/api/resource/Add Team Member',
         options: Options(
           method: 'POST',
           headers: {'Authorization': await getTocken()},
@@ -39,6 +39,7 @@ class AddMemberServices {
   }
 
   Future<bool> updateMember(Team_member member) async {
+    baseurl= await geturl();
     var data = json.encode({
       "data": member,
     });
@@ -69,6 +70,7 @@ class AddMemberServices {
   }
 
   Future<Team_member?> getmember(String id) async {
+    baseurl= await geturl();
     try {
       var dio = Dio();
       var response = await dio.request(
@@ -94,10 +96,11 @@ class AddMemberServices {
   }
 
   Future<List<String>> fetchdesignation() async {
+    baseurl= await geturl();
     try {
       var dio = Dio();
       var response = await dio.request(
-        apiaddDesignation,
+        '$baseurl/api/resource/Event Designation?limit_page_length=999',
         options: Options(
           method: 'GET',
           headers: {'Authorization': await getTocken()},
@@ -108,7 +111,7 @@ class AddMemberServices {
         var jsonData = json.encode(response.data);
         Map<String, dynamic> jsonDataMap = json.decode(jsonData);
         List<dynamic> dataList = jsonDataMap["data"];
-        Logger().i(dataList);
+       // Logger().i(dataList);
         List<String> namesList =
             dataList.map((item) => item["name"].toString()).toList();
         return namesList;
@@ -129,10 +132,11 @@ class AddMemberServices {
   }
 
   Future<List<String>> fetchrole() async {
+    baseurl= await geturl();
     try {
       var dio = Dio();
       var response = await dio.request(
-        apiroleprofile,
+        '$baseurl/api/resource/Role Profile?filters=[["name","in",["Visitor Administrator","web user"]]]',
         options: Options(
           method: 'GET',
           headers: {'Authorization': await getTocken()},
@@ -162,4 +166,5 @@ class AddMemberServices {
       return [];
     }
   }
+
 }

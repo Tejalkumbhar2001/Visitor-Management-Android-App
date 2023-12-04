@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logger/logger.dart';
 
@@ -9,6 +10,7 @@ import '../model/add_designation_model.dart';
 
 class AddDesignationServices {
   Future<bool> addDesignation(Add_Designation designation) async {
+    baseurl = await geturl();
     var data = json.encode({
       "data": designation,
     });
@@ -16,7 +18,7 @@ class AddDesignationServices {
     try {
       var dio = Dio();
       var response = await dio.request(
-        apiaddDesignation,
+        '$baseurl/api/resource/Event Designation?limit_page_length=999',
         options: Options(
           method: 'POST',
           headers: {'Authorization': await getTocken()},
@@ -27,13 +29,28 @@ class AddDesignationServices {
       if (response.statusCode == 200) {
         Fluttertoast.showToast(msg: "Designation Added Successfully");
         return true;
-      } else {
+      }
+
+      else {
         Fluttertoast.showToast(msg: "UNABLE TO add Designation!");
         return false;
       }
+    } on DioException catch (e) {
+
+      if (e.response?.statusCode == 409) {
+        // Handle 409 Conflict error here
+        Fluttertoast.showToast(msg: "Designation Already Exist!",textColor: Colors.red);
+        Logger().e("Conflict occurred");
+      } else {
+        // Handle other DioException cases if needed
+        Fluttertoast.showToast(msg: "Error occurred");
+        Logger().e("Error occurred");
+      }
     } catch (e) {
-      Fluttertoast.showToast(msg: "Error accoured $e ");
-      Logger().e(e);
+      // Handle other types of exceptions
+      Fluttertoast.showToast(msg: "Unexpected error occurred");
+      Logger().e("Unexpected error occurred: $e");
+
     }
     return false;
   }
@@ -46,7 +63,7 @@ class AddDesignationServices {
     try {
       var dio = Dio();
       var response = await dio.request(
-        '$baseurl/api/resource/Designations/${designation.name.toString()}',
+        '$baseurl/api/resource/Event Designation?limit_page_length=999/${designation.name.toString()}',
         options: Options(
           method: 'PUT',
           headers: {'Authorization': await getTocken()},
@@ -63,7 +80,7 @@ class AddDesignationServices {
       }
     } catch (e) {
       Fluttertoast.showToast(msg: "Error accoured $e ");
-      Logger().e(e);
+      Logger().e(e.hashCode);
     }
     return false;
   }

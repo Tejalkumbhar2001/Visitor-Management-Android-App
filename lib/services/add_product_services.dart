@@ -7,7 +7,11 @@ import 'package:logger/logger.dart';
 import '../constants.dart';
 
 class ProductServices {
+
+
+
   Future<String> uploadDocs(File? file) async {
+    baseurl= await geturl();
     if (file == null) {
       return "";
     }
@@ -20,7 +24,7 @@ class ProductServices {
       });
       var dio = Dio();
       var response = await dio.request(
-        apiUploadFilePost,
+        '$baseurl/api/method/upload_file',
         options: Options(
           method: 'POST',
           headers: {'Authorization': await getTocken()},
@@ -48,6 +52,7 @@ class ProductServices {
   }
 
   Future<bool> addproduct(Product product) async {
+    baseurl= await geturl();
     var data = json.encode({
       "data": product,
     });
@@ -78,6 +83,7 @@ class ProductServices {
   }
 
   Future<bool> updateproduct(Product product) async {
+    baseurl= await geturl();
     var data = json.encode({
       "data": product,
     });
@@ -108,6 +114,7 @@ class ProductServices {
   }
 
   Future<Product?> getproduct(String id) async {
+    baseurl= await geturl();
     try {
       var dio = Dio();
       var response = await dio.request(

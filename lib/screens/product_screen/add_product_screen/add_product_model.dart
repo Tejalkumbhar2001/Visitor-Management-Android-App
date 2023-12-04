@@ -1,12 +1,13 @@
 import 'dart:io';
-
+import 'package:image_picker/image_picker.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocation/model/product_model.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
-
+import 'package:file_picker/file_picker.dart';
 import '../../../constants.dart';
 import '../../../router.router.dart';
 import '../../../services/add_product_services.dart';
@@ -32,10 +33,10 @@ class ProductModel extends BaseViewModel {
 
   void onSaved(BuildContext context) async {
     setBusy(true);
-
     if (formKey.currentState!.validate()) {
       productcontroller.text = productdata.productName ?? "";
       descriptioncontroller.text = productdata.description ?? "";
+      await uploadFiles();
       notifyListeners();
       if (isEdit == true) {
         res = await ProductServices().updateproduct(productdata);
@@ -90,16 +91,20 @@ class ProductModel extends BaseViewModel {
 
   String? getFileFromProduct(String filetype) {
     print(filetype);
-    print("SELECTED FILE: ");
+    print(productdata.productImage);
     if (filetype == kAadharpdf) return productdata.productImage;
-
     return null;
   }
 
-  // Function to open file picker and select PDF file
-  Future<void> selectPdf(String fileType, ImageSource source) async {
+  // //Function to open file picker and select PDF file
+  Future<void> selectimage(String fileType, ImageSource source) async {
     try {
       final result = await ImagePicker().pickImage(source: source);
+      // final result =  await FilePicker.platform.pickFiles(
+      //   type:FileType.custom,
+      //   allowedExtensions: ['jpg','pdf','doc'],
+      // );
+
       if (result != null) {
         // print("SIZE BEFORE: ${result.files.single.size}");
         setBusy(true);
@@ -114,6 +119,33 @@ class ProductModel extends BaseViewModel {
           msg: 'Error while picking an image or document: $e');
     }
   }
+
+
+
+  Future<void> selectPdf(String fileType) async {
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['pdf'],
+      );
+
+      if (result != null) {
+        setBusy(true);
+        File? selectedFile = File(result.files.single.path!);
+     //   String uploadedFileUrl = await ProductServices().uploadDocs(selectedFile);
+        files.setFile(fileType, selectedFile);
+       // productdata.productImage = uploadedFileUrl;
+
+        setBusy(false);
+        notifyListeners();
+      }
+    } catch (e) {
+      Fluttertoast.showToast(
+        msg: 'Error while picking a PDF file: $e',
+      );
+    }
+  }
+
 
   // Function to upload the selected PDF file (Aadhar card)
   Future<void> uploadFiles() async {
@@ -137,8 +169,16 @@ class ProductModel extends BaseViewModel {
 
 class Files {
   File? adharCard;
+  FilePicker? pdfCard;
 
   File? getFile(String fileType) {
+    if (fileType == kAadharpdf) {
+      return adharCard;
+    }
+    return null;
+  }
+
+  File? getpdfFile(String fileType) {
     if (fileType == kAadharpdf) {
       return adharCard;
     }
@@ -148,6 +188,12 @@ class Files {
   void setFile(String fileType, File? file) {
     if (fileType == kAadharpdf) {
       adharCard = file;
+    }
+  }
+
+  void setPdfFile(String fileType, FilePicker? file) {
+    if (fileType == kAadharpdf) {
+      pdfCard = file;
     }
   }
 }

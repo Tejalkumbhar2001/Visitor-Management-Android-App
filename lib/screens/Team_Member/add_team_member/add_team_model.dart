@@ -53,19 +53,19 @@ class Addteammembermodel extends BaseViewModel {
       addmemberdata.password = passwordcontroller.text;
       addmemberdata.confirmPassword = confirmpasswordcontroller.text;
       Logger().i(addmemberdata.toJson().toString());
-      if (isEdit == true) {
-        res = await AddMemberServices().updateMember(addmemberdata);
-        if (res) {
-          if (context.mounted) {
-            setBusy(false);
-            setBusy(false);
-            Navigator.popAndPushNamed(
-              context,
-              Routes.teamMemberList,
-            );
-          }
-        }
-      } else {
+      // if (isEdit == true) {
+      //   res = await AddMemberServices().updateMember(addmemberdata);
+      //   if (res) {
+      //     if (context.mounted) {
+      //       setBusy(false);
+      //       setBusy(false);
+      //       Navigator.popAndPushNamed(
+      //         context,
+      //         Routes.teamMemberList,
+      //       );
+      //     }
+      //   }
+      // } else {
         res = await AddMemberServices().addMember(addmemberdata);
         if (res) {
           if (context.mounted) {
@@ -77,7 +77,7 @@ class Addteammembermodel extends BaseViewModel {
             );
           }
         }
-      }
+      // }
     }
     setBusy(false);
   }

@@ -15,38 +15,38 @@ class visitor_information {
   String? whatsappNo;
   String? email;
   int? different;
-  String? contact;
   String? company;
   String? designation;
   String? feedback;
   String? date;
+  String? event;
   String? doctype;
   List<Product>? product;
 
   visitor_information(
       {this.name,
-      this.owner,
-      this.modifiedBy,
-      this.docstatus,
-      this.idx,
-      this.companyName,
-      this.firstName,
-      this.age,
-      this.village,
-      this.taluka,
-      this.pincode,
-      this.state,
-      this.country,
-      this.whatsappNo,
-      this.email,
-      this.different,
-      this.contact,
-      this.company,
-      this.designation,
-      this.feedback,
-      this.date,
-      this.doctype,
-      this.product});
+        this.owner,
+        this.modifiedBy,
+        this.docstatus,
+        this.idx,
+        this.companyName,
+        this.firstName,
+        this.age,
+        this.village,
+        this.taluka,
+        this.pincode,
+        this.state,
+        this.country,
+        this.whatsappNo,
+        this.email,
+        this.different,
+        this.company,
+        this.designation,
+        this.feedback,
+        this.date,
+        this.event,
+        this.doctype,
+        this.product});
 
   visitor_information.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -65,11 +65,11 @@ class visitor_information {
     whatsappNo = json['whatsapp_no'];
     email = json['email'];
     different = json['different'];
-    contact = json['contact'];
     company = json['company'];
     designation = json['designation'];
     feedback = json['feedback'];
     date = json['date'];
+    event = json['event'];
     doctype = json['doctype'];
     if (json['product'] != null) {
       product = <Product>[];
@@ -97,11 +97,11 @@ class visitor_information {
     data['whatsapp_no'] = this.whatsappNo;
     data['email'] = this.email;
     data['different'] = this.different;
-    data['contact'] = this.contact;
     data['company'] = this.company;
     data['designation'] = this.designation;
     data['feedback'] = this.feedback;
     data['date'] = this.date;
+    data['event'] = this.event;
     data['doctype'] = this.doctype;
     if (this.product != null) {
       data['product'] = this.product!.map((v) => v.toJson()).toList();
@@ -120,6 +120,7 @@ class Product {
   String? product;
   String? description;
   String? companyName;
+  String? productAttach;
   String? parent;
   String? parentfield;
   String? parenttype;
@@ -127,18 +128,19 @@ class Product {
 
   Product(
       {this.name,
-      this.owner,
-      this.modifiedBy,
-      this.docstatus,
-      this.idx,
-      this.productName,
-      this.product,
-      this.description,
-      this.companyName,
-      this.parent,
-      this.parentfield,
-      this.parenttype,
-      this.doctype});
+        this.owner,
+        this.modifiedBy,
+        this.docstatus,
+        this.idx,
+        this.productName,
+        this.product,
+        this.description,
+        this.companyName,
+        this.productAttach,
+        this.parent,
+        this.parentfield,
+        this.parenttype,
+        this.doctype});
 
   Product.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -150,6 +152,7 @@ class Product {
     product = json['product'];
     description = json['description'];
     companyName = json['company_name'];
+    productAttach = json['product_attach'];
     parent = json['parent'];
     parentfield = json['parentfield'];
     parenttype = json['parenttype'];
@@ -167,6 +170,7 @@ class Product {
     data['product'] = this.product;
     data['description'] = this.description;
     data['company_name'] = this.companyName;
+    data['product_attach'] = this.productAttach;
     data['parent'] = this.parent;
     data['parentfield'] = this.parentfield;
     data['parenttype'] = this.parenttype;

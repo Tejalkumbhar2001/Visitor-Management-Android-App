@@ -59,7 +59,7 @@ class _SplashScreenState extends State<SplashScreen> {
             color: Colors.white,
             image: DecorationImage(
                 fit: BoxFit.fitWidth,
-                image: AssetImage('assets/images/13.jpg')),
+                image: AssetImage('assets/images/visitorsplash.png')),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -73,7 +73,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   child: Align(
                     alignment: Alignment.center,
                     child: Text(
-                      'Visitors Management',
+                      'Event Management',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),

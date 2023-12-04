@@ -1,34 +1,49 @@
 import 'package:flutter/cupertino.dart';
+import 'package:geolocation/constants.dart';
 import 'package:geolocation/services/visitor_info_services.dart';
 import 'package:logger/logger.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked/stacked.dart';
+import '../../../model/eventlist_model.dart';
 import '../../../model/visitor_info_model.dart';
 import '../../../router.router.dart';
+import '../../../services/addteammember_services.dart';
 
 class AddVisitorModel extends BaseViewModel {
+
+
   visitor_information visitordata = visitor_information();
   TextEditingController agecontroller = TextEditingController();
   TextEditingController firstnamecontroller = TextEditingController();
   TextEditingController villagecontroller = TextEditingController();
   TextEditingController talukacontroller = TextEditingController();
-  TextEditingController statecontroller = TextEditingController();
+  TextEditingController statecontroller = TextEditingController() ..text='Maharashtra';
   TextEditingController pincodecontroller = TextEditingController();
   TextEditingController whatsappcontroller = TextEditingController();
   TextEditingController emailcontroller = TextEditingController();
   TextEditingController comanynamecontroller = TextEditingController();
-  TextEditingController designationcontroller = TextEditingController();
+
   TextEditingController feedbackcontroller = TextEditingController();
 
   List<Product> products = [];
   final formKey = GlobalKey<FormState>();
   List<Product> productList = [];
   Product product = Product();
-
+  bool isChecked =false;
+  List<String> designationlist = [""];
+  List<String> eventlist = [""];
   bool isEdit = false;
 
-  initialise(BuildContext context, String visitorid) async {
+  initialise(BuildContext context, String visitorid,Map<String, dynamic> dataMap) async {
+    final Future<SharedPreferences> prefs0 = SharedPreferences.getInstance();
+    final SharedPreferences prefs = await prefs0;
     setBusy(true);
+
     productList = await visitorinfoservices().fetchProduct();
+    designationlist = await AddMemberServices().fetchdesignation();
+    eventlist=await visitorinfoservices().fetchevent();
+    // getevent() != null ?
+    visitordata.event = prefs.getString("event")?.toString();
     if (visitorid != "") {
       isEdit = true;
       visitordata = await visitorinfoservices().getvisitor(visitorid) ??
@@ -41,11 +56,21 @@ class AddVisitorModel extends BaseViewModel {
       whatsappcontroller.text = visitordata.whatsappNo ?? "";
       emailcontroller.text = visitordata.email ?? "";
       comanynamecontroller.text = visitordata.company ?? "";
-      designationcontroller.text = visitordata.designation ?? "";
+
       feedbackcontroller.text = visitordata.feedback ?? "";
       statecontroller.text = visitordata.state ?? "";
       notifyListeners();
       products.addAll(visitordata.product?.toList() ?? []);
+    }
+    if(dataMap.isNotEmpty){
+      villagecontroller.text = dataMap["address"] ?? "";
+      firstnamecontroller.text = dataMap["userName"] ?? "";
+      whatsappcontroller.text = dataMap["wtspNumber"] ?? "";
+      emailcontroller.text = dataMap["email"] ?? "";
+      comanynamecontroller.text=dataMap["customCompanyName"] ?? "";
+      agecontroller.text = dataMap["customAge"]??"";
+      // Handle event as needed, e.g., set the dropdown value
+      //visitordata.event = dataMap["eventName"] ?? "";
     }
     setBusy(false);
   }
@@ -61,7 +86,6 @@ class AddVisitorModel extends BaseViewModel {
       visitordata.whatsappNo = whatsappcontroller.text;
       visitordata.email = emailcontroller.text;
       visitordata.company = comanynamecontroller.text;
-      visitordata.designation = designationcontroller.text;
       visitordata.feedback = feedbackcontroller.text;
       visitordata.state = statecontroller.text;
       Logger().i(visitordata.toJson().toString());
@@ -72,7 +96,8 @@ class AddVisitorModel extends BaseViewModel {
           if (context.mounted) {
             setBusy(false);
             setBusy(false);
-            Navigator.popAndPushNamed(context, Routes.visitorList);
+           // Navigator.popAndPushNamed(context, Routes.addVisitor);
+
           }
         }
       } else {
@@ -81,7 +106,9 @@ class AddVisitorModel extends BaseViewModel {
           if (context.mounted) {
             setBusy(false);
             setBusy(false);
-            Navigator.popAndPushNamed(context, Routes.visitorList);
+            Navigator.pop(context, Routes.visitorList);
+           // Navigator.popUntil(context, ModalRoute.withName(Routes.visitorList));
+
           }
         }
       }
@@ -89,12 +116,19 @@ class AddVisitorModel extends BaseViewModel {
     setBusy(false);
   }
 
-  String firstname = "";
+  String designation = "";
   void setSelectedName(String? plant) {
     visitordata.firstName = plant;
     notifyListeners();
   }
-
+  void setEvent(String? event) {
+    visitordata.event = event;
+    notifyListeners();
+  }
+  // void setdesignation(EventList? selectevent) {
+  //
+  //   notifyListeners();
+  // }
   void setage(String? age) {
     agecontroller.value = agecontroller.value.copyWith(
       text: age ?? '',
@@ -104,29 +138,28 @@ class AddVisitorModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void addProduct(Product product) {
-    // Check if the product is already in the list based on productName
+  List<Product> selectedproduct =[];
+  void addProduct(String? product) {
+
     bool isProductAlreadyAdded = products.any((existingProduct) =>
-        existingProduct.productName == product.productName);
+    existingProduct.productName == product);
+    Logger().i(product);
+    final selectedCaneData = productList.firstWhere(
+            (caneData) => caneData.productName == product);
 
     if (!isProductAlreadyAdded) {
-      // If the product is not already in the list, add it
       products.add(Product(
-        name: product.name,
-        productName: product.productName,
-        description: product.description,
+        productName: selectedCaneData.name,
+       product: selectedCaneData.product,
+        description: selectedCaneData.description,
       ));
       notifyListeners();
-      visitordata.product = products;
-      Logger().i(products
-          .toList()
-          .toString()); // Notify listeners to update the UI when the list changes
     }
   }
-
   void deleteVisitor(int index) {
     if (index >= 0 && index < products.length) {
       products.removeAt(index);
+      // selectedproduct.removeAt(index);
       notifyListeners();
     }
   }
@@ -166,6 +199,7 @@ class AddVisitorModel extends BaseViewModel {
     notifyListeners();
   }
 
+
   void setdesignation(String? desgination) {
     visitordata.designation = desgination;
     notifyListeners();
@@ -175,6 +209,12 @@ class AddVisitorModel extends BaseViewModel {
     visitordata.feedback = feedback;
     notifyListeners();
   }
+
+  // void setvariables(){
+  //   selectedproduct =visitordata.product ?? [];
+  //   Logger().i(selectedproduct.toString());
+  //   notifyListeners();
+  // }
 
   String formatMobileNumber(String value) {
     value = value.replaceAll(' ', ''); // Remove existing spaces
@@ -280,7 +320,7 @@ class AddVisitorModel extends BaseViewModel {
     whatsappcontroller.dispose();
     emailcontroller.dispose();
     comanynamecontroller.dispose();
-    designationcontroller.dispose();
+
     feedbackcontroller.dispose();
     super.dispose();
   }
