@@ -83,10 +83,11 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   ],
                                 ),
-                                child: const Column(
+                                child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(Icons.people, size: 40, color: Colors.blueAccent,),
+                                    Image.asset('assets/images/visitors.png',scale: 10,),
+                                   // Icon(Icons.people, size: 40, color: Colors.blueAccent,),
                                     AutoSizeText("Visitor", style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold,fontSize: 13),),
                                     AutoSizeText("Information", style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 13),)
                                   ],
@@ -111,10 +112,11 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ],
                               ),
-                                child: const Column(
+                                child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(Icons.shopping_cart,size: 40,color: Colors.blueAccent,),
+                                    Image.asset('assets/images/box.png',scale: 10,),
+                                    //Icon(Icons.shopping_cart,size: 40,color: Colors.blueAccent,),
                                     AutoSizeText("Products",style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold,fontSize: 13),)
                                   ],),
                               ),
@@ -135,10 +137,11 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ],
                               ),
-                                child: const Column(
+                                child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(Icons.person_pin_outlined,size: 40,color: Colors.blueAccent,),
+                                    Image.asset('assets/images/folder.png',scale: 10,),
+                                  //  Icon(Icons.person_pin_outlined,size: 40,color: Colors.blueAccent,),
                                     AutoSizeText("Designations",style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold,fontSize: 13),)
                                   ],),
                               ),
@@ -159,10 +162,11 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ],
                               ),
-                                child: const Column(
+                                child:  Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(Icons.event,size: 40,color: Colors.blueAccent,),
+                                    Image.asset('assets/images/event.png',scale: 10,),
+                                    //Icon(Icons.event,size: 40,color: Colors.blueAccent,),
                                     AutoSizeText("Event",style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold,fontSize: 13),)
                                   ],),
                               ),
@@ -185,10 +189,11 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ],
                               ),
-                                child: const Column(
+                                child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(Icons.person,size: 40,color: Colors.blueAccent,),
+                                    Image.asset('assets/images/team.png',scale: 10,),
+                                   // Icon(Icons.person,size: 40,color: Colors.blueAccent,),
                                     AutoSizeText("Team",style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold,fontSize: 13),),
                                     AutoSizeText("Members",style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold,fontSize: 13),)
                                   ],),
@@ -228,10 +233,11 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   ],
                                 ),
-                                child: const Column(
+                                child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(Icons.qr_code_2,size: 40,color: Colors.blueAccent,),
+                                    Image.asset('assets/images/scan.png',scale: 10,),
+                                   // Icon(Icons.qr_code_2,size: 40,color: Colors.blueAccent,),
                                     Text("Attendance",style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold,fontSize: 13),),
                                     Text("QR",style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold,fontSize: 13),)
                                   ],),
@@ -254,10 +260,11 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   ],
                                 ),
-                                child: const Column(
+                                child:  Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(Icons.qr_code_scanner,size: 40,color: Colors.blueAccent,),
+                                    Image.asset('assets/images/gift.png',scale: 15,),
+                                   // Icon(Icons.qr_code_scanner,size: 40,color: Colors.blueAccent,),
                                     Text("Gift QR",style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold,fontSize: 13),)
                                   ],),
                               ),

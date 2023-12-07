@@ -222,16 +222,7 @@ class _AddVisitorState extends State<AddVisitor> {
                             const SizedBox(
                               height: 15,
                             ),
-                            // TextFormField(
-                            //   controller: model.designationcontroller,
-                            //   decoration: AppInputDecorations.textFieldDecoration(
-                            //       labelText: 'Designation',
-                            //       hintText: 'Director',
-                            //       prefixIcon: Icons.person_pin_outlined),
-                            //   onChanged: model.setdesignation,
-                            //   validator: model.validatedesignation,
-                            //   // Add validation logic and controller as needed
-                            // ),
+
                             CdropDown(
                               dropdownButton: DropdownButtonFormField<String>(
                                 menuMaxHeight: 200,
@@ -262,28 +253,7 @@ class _AddVisitorState extends State<AddVisitor> {
                             const SizedBox(
                               height: 15,
                             ),
-                            // CdropDown(
-                            //   dropdownButton: DropdownButtonFormField<Product>(
-                            //     isExpanded: true,
-                            //     // Replace null with the selected value if needed
-                            //     decoration: const InputDecoration(
-                            //       labelText: 'Product',
-                            //     ),
-                            //     hint: const Text('Select Product'),
-                            //     items: model.productList.map((val) {
-                            //       return DropdownMenuItem<Product>(
-                            //         value: val,
-                            //         child: AutoSizeText(val.productName ?? ""),
-                            //       );
-                            //     }).toList(),
-                            //     onChanged: (value) {
-                            //       if (value != null) {
-                            //         model.addProduct(
-                            //             value); // Add the selected item's productName to the products list
-                            //       }
-                            //     },
-                            //   ),
-                            // ),
+
                             (model.products.isEmpty)
                                 ? const SizedBox()
                                 : SingleChildScrollView(
