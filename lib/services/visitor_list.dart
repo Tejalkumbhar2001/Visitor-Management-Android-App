@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ui';
 import 'package:dio/dio.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logger/logger.dart';
@@ -60,9 +61,13 @@ class Visitorlistservices {
         Fluttertoast.showToast(msg: "Unable to fetch Visitors");
         return [];
       }
-    } catch (e) {
+    } on DioException catch (e) {
+      Fluttertoast.showToast(
+        msg: "${e.response?.data["message"].toString()} ",
+        backgroundColor: Color(0xFFBA1A1A),
+        textColor: Color(0xFFFFFFFF),
+      );
       Logger().e(e);
-      Fluttertoast.showToast(msg: "Unauthorized Visitors!");
       return [];
     }
   }

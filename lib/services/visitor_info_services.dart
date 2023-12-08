@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ui';
 import 'package:dio/dio.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocation/model/visitor_info_model.dart';
@@ -35,11 +36,15 @@ class visitorinfoservices {
         Fluttertoast.showToast(msg: "Unable to Event");
         return [];
       }
-    } catch (e) {
+    }  on DioException catch (e) {
+      Fluttertoast.showToast(
+        msg: "${e.response?.data["exception"].toString()} ",
+        backgroundColor: Color(0xFFBA1A1A),
+        textColor: Color(0xFFFFFFFF),
+      );
       Logger().e(e);
-      Fluttertoast.showToast(msg: "Unauthorized Access!");
-      return [];
     }
+    return[];
   }
   Future<List<Product>> fetchProduct() async {
     baseurl= await geturl();
@@ -63,11 +68,15 @@ class visitorinfoservices {
         Fluttertoast.showToast(msg: "Unable to fetch products");
         return [];
       }
-    } catch (e) {
+    }  on DioException catch (e) {
+      Fluttertoast.showToast(
+        msg: "${e.response?.data["exception"].toString()} ",
+        backgroundColor: Color(0xFFBA1A1A),
+        textColor: Color(0xFFFFFFFF),
+      );
       Logger().e(e);
-      Fluttertoast.showToast(msg: "Unauthorized products!");
-      return [];
     }
+    return [];
   }
 
   Future<visitor_information?> getvisitor(String id) async {
@@ -89,9 +98,13 @@ class visitorinfoservices {
         // print(response.statusMessage);
         return null;
       }
-    } catch (e) {
-      Logger().i(e);
-      Fluttertoast.showToast(msg: "Error while fetching visitor");
+    }  on DioException catch (e) {
+      Fluttertoast.showToast(
+        msg: "${e.response?.data["exception"].toString()} ",
+        backgroundColor: Color(0xFFBA1A1A),
+        textColor: Color(0xFFFFFFFF),
+      );
+      Logger().e(e);
     }
     return null;
   }
@@ -117,8 +130,12 @@ class visitorinfoservices {
         Fluttertoast.showToast(msg: "UNABLE TO Visitor!");
         return false;
       }
-    } catch (e) {
-      Fluttertoast.showToast(msg: "Error accoured $e ");
+    }  on DioException catch (e) {
+      Fluttertoast.showToast(
+        msg: "${e.response?.data["exception"].toString()} ",
+        backgroundColor: Color(0xFFBA1A1A),
+        textColor: Color(0xFFFFFFFF),
+      );
       Logger().e(e);
     }
     return false;
@@ -150,8 +167,12 @@ Logger().i(visitor.toJson().toString());
         Fluttertoast.showToast(msg: "UNABLE TO add Visitor!");
         return false;
       }
-    } catch (e) {
-      Fluttertoast.showToast(msg: "Error accoured $e ");
+    }  on DioException catch (e) {
+      Fluttertoast.showToast(
+        msg: "${e.response?.data["exception"].toString()} ",
+        backgroundColor: Color(0xFFBA1A1A),
+        textColor: Color(0xFFFFFFFF),
+      );
       Logger().e(e);
     }
     return false;
@@ -178,9 +199,13 @@ Logger().i(visitor.toJson().toString());
         // print(response.statusMessage);
         return null;
       }
-    } catch (e) {
-      Logger().i(e);
-      Fluttertoast.showToast(msg: "Error while fetching visitor");
+    }  on DioException catch (e) {
+      Fluttertoast.showToast(
+        msg: "${e.response?.data["exception"].toString()} ",
+        backgroundColor: Color(0xFFBA1A1A),
+        textColor: Color(0xFFFFFFFF),
+      );
+      Logger().e(e);
     }
     return null;
   }

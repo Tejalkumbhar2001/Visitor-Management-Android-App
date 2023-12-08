@@ -5,6 +5,7 @@ import 'package:geolocation/constants.dart';
 import 'package:geolocation/screens/login/login_view.dart';
 import 'package:geolocation/widgets/full_screen_loader.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:stacked/stacked.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../../router.router.dart';
@@ -50,8 +51,7 @@ class _LoginViewScreenState extends State<LoginViewScreen> {
                 colors: [Color(0xFFFFD54F),Color(0xFFE91E63), Color(0xFFEF5350),Color(0xFFFFD54F)],
               ),
             ),
-            child: fullScreenLoader(
-              child: SafeArea(
+            child:  SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.all(25),
                   child: Center(
@@ -225,7 +225,12 @@ class _LoginViewScreenState extends State<LoginViewScreen> {
                                         model.loginwithUsernamePassword(context);
                                       }
                                     },
-                                    child: const Text(
+                                    child: model.isloading
+                                        ? LoadingAnimationWidget.hexagonDots(
+                                      color: Colors.white,
+                                      size: 18,
+                                    )
+                                        : const Text(
                                       'Login',
                                       style: TextStyle(
                                           fontSize: 20, color: Colors.white),
@@ -302,9 +307,7 @@ class _LoginViewScreenState extends State<LoginViewScreen> {
                   ),
                 ),
               ),
-              loader: model.isloading,
-              context: context,
-            ),
+
           ),
         ),
       ),

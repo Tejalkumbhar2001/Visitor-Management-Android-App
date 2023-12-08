@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
         viewModelBuilder: () => Homeviewmodel(),
         onViewModelReady: (model) => model.initialise(context),
         builder: (context, model, child) => Scaffold(
-
+             backgroundColor: Colors.grey.shade100,
               appBar: AppBar(
 
                 title: const AutoSizeText('Home'),
@@ -58,20 +58,50 @@ class _HomePageState extends State<HomePage> {
                 child: fullScreenLoader(
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
-                    child: Column
-                      (crossAxisAlignment: CrossAxisAlignment.center
-                      ,
-                      children: [
-                        model.userdata.roleProfileName != 'QR Validator' ?  Container(
-                          padding: EdgeInsets.all(8),
-                          height: 250,
-                          child: GridView(children: [
-                            InkWell(
-                              onTap: () {
-                                Navigator.pushNamed(context, Routes.visitorList);
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
+                    child: SingleChildScrollView(
+                      child: Column
+                        (crossAxisAlignment: CrossAxisAlignment.center
+                        ,
+                        children: [
+                          model.userdata.roleProfileName != 'QR Validator' ?  Container(
+                            padding: EdgeInsets.all(8),
+                            height: (MediaQuery.of(context).size.height)/3,
+                            child: GridView(children: [
+                              InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(context, Routes.visitorList);
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.5), // Customize the shadow color and opacity
+                                        spreadRadius: 5,
+                                        blurRadius: 7,
+                                        offset: const Offset(0, 3), // Customize the shadow offset
+                                      ),
+                                    ],
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset('assets/images/visitors.png',scale: 10,),
+                                     // Icon(Icons.people, size: 40, color: Colors.blueAccent,),
+                                      AutoSizeText("Visitor", style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold,fontSize: 13),),
+                                      AutoSizeText("Information", style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 13),)
+                                    ],
+                                  ),
+                                ),
+                              ),
+
+                              InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(context, Routes.productList);
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
                                   color: Colors.white,
                                   boxShadow: [
@@ -83,199 +113,171 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   ],
                                 ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image.asset('assets/images/visitors.png',scale: 10,),
-                                   // Icon(Icons.people, size: 40, color: Colors.blueAccent,),
-                                    AutoSizeText("Visitor", style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold,fontSize: 13),),
-                                    AutoSizeText("Information", style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 13),)
-                                  ],
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset('assets/images/box.png',scale: 10,),
+                                      //Icon(Icons.shopping_cart,size: 40,color: Colors.blueAccent,),
+                                      AutoSizeText("Products",style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold,fontSize: 13),)
+                                    ],),
                                 ),
                               ),
+                              InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(context, Routes.listDesignation);
+                                },
+                                child: Container(decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5), // Customize the shadow color and opacity
+                                      spreadRadius: 5,
+                                      blurRadius: 7,
+                                      offset: const Offset(0, 3), // Customize the shadow offset
+                                    ),
+                                  ],
+                                ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset('assets/images/folder.png',scale: 10,),
+                                    //  Icon(Icons.person_pin_outlined,size: 40,color: Colors.blueAccent,),
+                                      AutoSizeText("Designations",style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold,fontSize: 13),)
+                                    ],),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(context, Routes.listEventView);
+                                },
+                                child: Container(decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5), // Customize the shadow color and opacity
+                                      spreadRadius: 5,
+                                      blurRadius: 7,
+                                      offset: const Offset(0, 3), // Customize the shadow offset
+                                    ),
+                                  ],
+                                ),
+                                  child:  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset('assets/images/event.png',scale: 10,),
+                                      //Icon(Icons.event,size: 40,color: Colors.blueAccent,),
+                                      AutoSizeText("Event",style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold,fontSize: 13),)
+                                    ],),
+                                ),
+                              ),
+
+                              model.userdata.roleProfileName != 'web user' ?
+                              InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(context, Routes.teamMemberList);
+                                },
+                                child: Container(decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5), // Customize the shadow color and opacity
+                                      spreadRadius: 5,
+                                      blurRadius: 7,
+                                      offset: const Offset(0, 3), // Customize the shadow offset
+                                    ),
+                                  ],
+                                ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset('assets/images/team.png',scale: 10,),
+                                     // Icon(Icons.person,size: 40,color: Colors.blueAccent,),
+                                      AutoSizeText("Team",style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold,fontSize: 13),),
+                                      AutoSizeText("Members",style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold,fontSize: 13),)
+                                    ],),
+                                ),
+                              ):Container()
+                            ],
+
+                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:3 , mainAxisSpacing: 20, crossAxisSpacing: 20 ),
                             ),
 
-                            InkWell(
-                              onTap: () {
-                                Navigator.pushNamed(context, Routes.productList);
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.5), // Customize the shadow color and opacity
-                                    spreadRadius: 5,
-                                    blurRadius: 7,
-                                    offset: const Offset(0, 3), // Customize the shadow offset
-                                  ),
-                                ],
-                              ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image.asset('assets/images/box.png',scale: 10,),
-                                    //Icon(Icons.shopping_cart,size: 40,color: Colors.blueAccent,),
-                                    AutoSizeText("Products",style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold,fontSize: 13),)
-                                  ],),
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                Navigator.pushNamed(context, Routes.listDesignation);
-                              },
-                              child: Container(decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.5), // Customize the shadow color and opacity
-                                    spreadRadius: 5,
-                                    blurRadius: 7,
-                                    offset: const Offset(0, 3), // Customize the shadow offset
-                                  ),
-                                ],
-                              ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image.asset('assets/images/folder.png',scale: 10,),
-                                  //  Icon(Icons.person_pin_outlined,size: 40,color: Colors.blueAccent,),
-                                    AutoSizeText("Designations",style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold,fontSize: 13),)
-                                  ],),
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                Navigator.pushNamed(context, Routes.listEventView);
-                              },
-                              child: Container(decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.5), // Customize the shadow color and opacity
-                                    spreadRadius: 5,
-                                    blurRadius: 7,
-                                    offset: const Offset(0, 3), // Customize the shadow offset
-                                  ),
-                                ],
-                              ),
-                                child:  Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image.asset('assets/images/event.png',scale: 10,),
-                                    //Icon(Icons.event,size: 40,color: Colors.blueAccent,),
-                                    AutoSizeText("Event",style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold,fontSize: 13),)
-                                  ],),
-                              ),
-                            ),
+                          ):
 
-                            model.userdata.roleProfileName != 'web user' ?
-                            InkWell(
-                              onTap: () {
-                                Navigator.pushNamed(context, Routes.teamMemberList);
-                              },
-                              child: Container(decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.5), // Customize the shadow color and opacity
-                                    spreadRadius: 5,
-                                    blurRadius: 7,
-                                    offset: const Offset(0, 3), // Customize the shadow offset
-                                  ),
-                                ],
-                              ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image.asset('assets/images/team.png',scale: 10,),
-                                   // Icon(Icons.person,size: 40,color: Colors.blueAccent,),
-                                    AutoSizeText("Team",style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold,fontSize: 13),),
-                                    AutoSizeText("Members",style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold,fontSize: 13),)
-                                  ],),
-                              ),
-                            ):Container()
-                          ],
+                          Container(),
 
-                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:3 , mainAxisSpacing: 20, crossAxisSpacing: 20 ),
+                          const SizedBox(height: 20,),
+                          Text('Scan your code here',style:TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 20,) ,),
+                           Container(
+
+                            padding: EdgeInsets.all(15),
+
+                             height: (MediaQuery.of(context).size.height)/3,
+                            child: GridView(children: [
+                              InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(context, Routes.attendenceScanner);
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.5), // Customize the shadow color and opacity
+                                        spreadRadius: 5,
+                                        blurRadius: 7,
+                                        offset: const Offset(0, 3), // Customize the shadow offset
+                                      ),
+                                    ],
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset('assets/images/scan.png',scale: 10,),
+                                     // Icon(Icons.qr_code_2,size: 40,color: Colors.blueAccent,),
+                                      Text("Attendance",style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold,fontSize: 13),),
+                                      Text("QR",style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold,fontSize: 13),)
+                                    ],),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(context, Routes.tlcGiftScanner);
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.5), // Customize the shadow color and opacity
+                                        spreadRadius: 5,
+                                        blurRadius: 7,
+                                        offset: const Offset(0, 3), // Customize the shadow offset
+                                      ),
+                                    ],
+                                  ),
+                                  child:  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset('assets/images/gift.png',scale: 15,),
+                                     // Icon(Icons.qr_code_scanner,size: 40,color: Colors.blueAccent,),
+                                      Text("Gift QR",style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold,fontSize: 13),)
+                                    ],),
+                                ),
+                              ),
+
+
+                            ],
+                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:3 , mainAxisSpacing: 20, crossAxisSpacing: 20 ),
+                            ),
                           ),
-
-                        ):
-
-                        Container(),
-
-                        const SizedBox(height: 20,),
-                        Text('Scan your code here',style:TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 20,) ,),
-                         Container(
-
-                          padding: EdgeInsets.all(15),
-
-                          height: 155,
-                          child: GridView(children: [
-                            InkWell(
-                              onTap: () {
-                                Navigator.pushNamed(context, Routes.attendenceScanner);
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.5), // Customize the shadow color and opacity
-                                      spreadRadius: 5,
-                                      blurRadius: 7,
-                                      offset: const Offset(0, 3), // Customize the shadow offset
-                                    ),
-                                  ],
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image.asset('assets/images/scan.png',scale: 10,),
-                                   // Icon(Icons.qr_code_2,size: 40,color: Colors.blueAccent,),
-                                    Text("Attendance",style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold,fontSize: 13),),
-                                    Text("QR",style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold,fontSize: 13),)
-                                  ],),
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                Navigator.pushNamed(context, Routes.tlcGiftScanner);
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.5), // Customize the shadow color and opacity
-                                      spreadRadius: 5,
-                                      blurRadius: 7,
-                                      offset: const Offset(0, 3), // Customize the shadow offset
-                                    ),
-                                  ],
-                                ),
-                                child:  Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image.asset('assets/images/gift.png',scale: 15,),
-                                   // Icon(Icons.qr_code_scanner,size: 40,color: Colors.blueAccent,),
-                                    Text("Gift QR",style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold,fontSize: 13),)
-                                  ],),
-                              ),
-                            ),
-
-
-                          ],
-                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:3 , mainAxisSpacing: 20, crossAxisSpacing: 20 ),
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
 

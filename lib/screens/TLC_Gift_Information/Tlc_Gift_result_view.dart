@@ -5,6 +5,7 @@ import 'package:geolocation/qr_code_scanner.dart';
 
 import 'package:geolocation/router.router.dart';
 import 'package:geolocation/widgets/full_screen_loader.dart';
+import 'package:logger/logger.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:stacked/stacked.dart';
 
@@ -248,18 +249,19 @@ class TlcGiftResultScreen extends StatelessWidget {
 
                       Visibility(
                         visible: model.isTLCMember,
-                        child: Container(
+                        child: SizedBox(
                           width: 200, // Adjust the width as needed
                           height: 50,  // Adjust the height as needed
                           child: CtextButton(
                             onPressed: () {
                               model.onSaved(context);
-                              if(model.res==true){
-                                showSaveDialog(context);
-                              }
-                              else{
-                                showFailureDialog(context);
-                              }
+                              // Logger().i(model.res);
+                              // if(model.res == true){
+                              //   showSaveDialog(context);
+                              // }
+                              // else{
+                              //   showFailureDialog(context);
+                              // }
                             },
                             text: 'Save Gift Information',
                           ),

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ui';
 
 import 'package:dio/dio.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -31,8 +32,12 @@ class AddMemberServices {
         Fluttertoast.showToast(msg: "UNABLE TO add Team Member!");
         return false;
       }
-    } catch (e) {
-      Fluttertoast.showToast(msg: "Error accoured $e ");
+    } on DioException catch (e) {
+      Fluttertoast.showToast(
+        msg: "${e.response?.data["exception"].toString()} ",
+        backgroundColor: Color(0xFFBA1A1A),
+        textColor: Color(0xFFFFFFFF),
+      );
       Logger().e(e);
     }
     return false;
@@ -62,8 +67,12 @@ class AddMemberServices {
         Fluttertoast.showToast(msg: "UNABLE TO update Team Member!");
         return false;
       }
-    } catch (e) {
-      Fluttertoast.showToast(msg: "Error accoured $e ");
+    } on DioException catch (e) {
+      Fluttertoast.showToast(
+        msg: "${e.response?.data["exception"].toString()} ",
+        backgroundColor: Color(0xFFBA1A1A),
+        textColor: Color(0xFFFFFFFF),
+      );
       Logger().e(e);
     }
     return false;
@@ -121,7 +130,7 @@ class AddMemberServices {
         Fluttertoast.showToast(msg: "Unauthorized Access!");
         return ["401"];
       } else {
-        Fluttertoast.showToast(msg: "Unable to Designations");
+        Fluttertoast.showToast(msg: "Unable to fetch Designations");
         return [];
       }
     } catch (e) {
